@@ -1,4 +1,4 @@
-package com.martenscedric.hexmap;
+package com.cedricmartens.hexpert;
 import java.lang.Exception;
 
 /*
