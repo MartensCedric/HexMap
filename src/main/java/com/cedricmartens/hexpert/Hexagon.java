@@ -8,7 +8,7 @@ public class Hexagon<T extends HexagonData>
 {
     private HexCoord hexCoord;
 
-    public Hexagon(Point center, double radius) {
-        hexCoord = new HexCoord(center, radius, HexagonOrientation.POINTY_TOP);
+    public Hexagon(Point center, double size) {
+        hexCoord = new HexCoord(center, size, HexagonOrientation.POINTY_TOP);
     }
 }

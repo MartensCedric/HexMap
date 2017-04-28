@@ -14,15 +14,15 @@ public class HexCoord
     private HexagonOrientation orientation;
     private Point middlePoint;
     private List<Point> points;
-    private double radius;
+    private double size;
 
-    public HexCoord(Point middlePoint, double radius, HexagonOrientation orientation)
+    public HexCoord(Point middlePoint, double size, HexagonOrientation orientation)
     {
-        if(radius <= 0)
+        if(size <= 0)
             throw new IllegalArgumentException();
 
         this.middlePoint = middlePoint;
-        this.radius = radius;
+        this.size = size;
         this.points = new ArrayList<Point>();
         this.orientation = orientation;
 
@@ -30,12 +30,16 @@ public class HexCoord
         {
             double degrees = i * 60;
             degrees += orientation == HexagonOrientation.POINTY_TOP ? 30 : 0;
-            double rad = Math.PI/180 * degrees;
+            double rad = Math.PI/180.0 * degrees;
             points.add(i, new Point(
-                middlePoint.x + radius * Math.cos(rad),
-                middlePoint.y + radius * Math.sin(rad))
+                middlePoint.x + size * Math.cos(rad),
+                middlePoint.y + size * Math.sin(rad))
             );
         }
+    }
+
+    public Point getMiddlePoint() {
+        return middlePoint;
     }
 
     public List<Point> getPoints()
@@ -43,13 +47,17 @@ public class HexCoord
         return points;
     }
 
-    private double getHeight()
+    public double getHeight()
     {
-        return radius * 2;
+        return orientation == HexagonOrientation.POINTY_TOP ?
+                size * 2 :
+                Math.sqrt(3)/2 * getWidth();
     }
 
-    private double getWidth()
+    public double getWidth()
     {
-        return Math.sqrt(3)/2 * getHeight();
+        return orientation == HexagonOrientation.POINTY_TOP ?
+                Math.sqrt(3)/2 * getHeight() :
+                size * 2;
     }
 }

@@ -26,6 +26,15 @@ public class Point
     public boolean equals(Object o)
     {
         Point p = (Point)o;
-        return p.x == this.x && p.y == this.y;
+        return Math.round(p.x * 100.0)/100.0 == Math.round(this.x * 100.0)/100.0
+                && Math.round(p.y * 100.0)/100.0 == Math.round(this.y * 100.0)/100.0 ;
+    }
+
+    @Override
+    public String toString() {
+        return "Point{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 }
