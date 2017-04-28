@@ -2,8 +2,7 @@ package com.cedricmartens;
 
 import com.cedricmartens.hexpert.HexCoord;
 import com.cedricmartens.hexpert.HexagonOrientation;
-import com.cedricmartens.hexpert.HexagonShape;
-import com.cedricmartens.hexpert.Point;
+import com.cedricmartens.hexpert.coordinate.Point;
 import org.junit.Assert;
 import org.junit.Test;
 

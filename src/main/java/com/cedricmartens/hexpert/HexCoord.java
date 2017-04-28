@@ -1,8 +1,8 @@
 package com.cedricmartens.hexpert;
 
+import com.cedricmartens.hexpert.coordinate.Point;
+
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 /**

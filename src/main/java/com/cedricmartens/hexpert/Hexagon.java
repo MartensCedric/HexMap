@@ -1,5 +1,7 @@
 package com.cedricmartens.hexpert;
 
+import com.cedricmartens.hexpert.coordinate.Point;
+
 /**
  * Created by Cedric Martens on 2017-04-27.
  */
