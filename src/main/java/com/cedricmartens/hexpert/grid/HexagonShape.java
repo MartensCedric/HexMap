@@ -1,4 +1,4 @@
-package com.cedricmartens.hexpert;
+package com.cedricmartens.hexpert.grid;
 
 /**
  * Created by Cedric Martens on 2017-04-27.
@@ -6,7 +6,7 @@ package com.cedricmartens.hexpert;
 
 public enum HexagonShape
 {
-    SQUARE,
+    RECTANGLE,
     HEXAGON,
     LINE,
     TRIANGLE

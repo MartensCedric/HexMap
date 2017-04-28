@@ -1,4 +1,4 @@
-package com.cedricmartens.hexpert;
+package com.cedricmartens.hexpert.grid;
 
 /**
  * Created by 1544256 on 2017-04-28.

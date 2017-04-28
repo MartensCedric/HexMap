@@ -1,4 +1,4 @@
-package com.cedricmartens;
+package com.cedricmartens.hexpert;
 
 import org.junit.Test;
 

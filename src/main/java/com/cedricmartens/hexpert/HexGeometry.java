@@ -1,6 +1,7 @@
 package com.cedricmartens.hexpert;
 
 import com.cedricmartens.hexpert.coordinate.Point;
+import com.cedricmartens.hexpert.grid.HexagonOrientation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +10,14 @@ import java.util.List;
  * Created by Cedric Martens on 2017-04-27.
  */
 
-public class HexCoord
+public class HexGeometry
 {
     private HexagonOrientation orientation;
     private Point middlePoint;
     private List<Point> points;
     private double size;
 
-    public HexCoord(Point middlePoint, double size, HexagonOrientation orientation)
+    public HexGeometry(Point middlePoint, double size, HexagonOrientation orientation)
     {
         if(size <= 0)
             throw new IllegalArgumentException();
