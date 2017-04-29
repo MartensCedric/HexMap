@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class HexGridBuilderTest
 {
-    @Test
+    @Test (timeout = 1000)
     public void testGrid()
     {
         HexGrid<Integer> hex = new HexGridBuilder<Integer>()
@@ -20,23 +20,5 @@ public class HexGridBuilderTest
                 .setShape(HexagonShape.HEXAGON)
                 .setStyle(new HexStyle(15, HexagonOrientation.FLAT_TOP))
                 .build();
-    }
-
-    @Test
-    public void testgetByCubeCoordinate()
-    {
-        HexGrid<Integer> hex = new HexGridBuilder<Integer>()
-                .setHeight(7)
-                .setWidth(7)
-                .setShape(HexagonShape.HEXAGON)
-                .setStyle(new HexStyle(15, HexagonOrientation.FLAT_TOP))
-                .build();
-
-
-        Assert.assertEquals(hex.getHexs()[0], hex.getByCoordinate(new CubeCoordinate(0, 0, 0)));
-        Assert.assertEquals(hex.getHexs()[1], hex.getByCoordinate(new CubeCoordinate(1, -1, 0)));
-        Assert.assertEquals(hex.getHexs()[7], hex.getByCoordinate(new CubeCoordinate(2, -2, 0)));
-        Assert.assertEquals(hex.getHexs()[19], hex.getByCoordinate(new CubeCoordinate(3, -3, 0)));
-        Assert.assertEquals(hex.getHexs()[23], hex.getByCoordinate(new CubeCoordinate(2, 1, -3)));
     }
 }

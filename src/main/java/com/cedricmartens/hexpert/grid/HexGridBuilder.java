@@ -272,7 +272,8 @@ public class HexGridBuilder<T> extends HexGridCore
     {
         HexGrid<T> grid = new HexGrid<T>();
         grid.shape = this.shape;
-        grid.hexs = hexs;
+        grid.hexs = this.hexs;
+        grid.coordinate = this.coordinate;
         grid.origin = this.origin;
         grid.height = this.height;
         grid.width = this.width;
