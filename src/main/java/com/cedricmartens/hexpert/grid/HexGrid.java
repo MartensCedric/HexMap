@@ -3,12 +3,10 @@ package com.cedricmartens.hexpert.grid;
 import com.cedricmartens.hexpert.HexStyle;
 import com.cedricmartens.hexpert.Hexagon;
 import com.cedricmartens.hexpert.Utils;
-import com.cedricmartens.hexpert.coordinate.AxialCoordinate;
-import com.cedricmartens.hexpert.coordinate.Coordinate;
-import com.cedricmartens.hexpert.coordinate.CubeCoordinate;
-import com.cedricmartens.hexpert.coordinate.OffsetCoordinate;
+import com.cedricmartens.hexpert.coordinate.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -149,5 +147,26 @@ public class HexGrid<T> extends HexGridCore
     public boolean isOuter(Hexagon<T> hex)
     {
         return getNeighbors(hex).size() <= 4;
+    }
+
+    public Hexagon<T> getAt(Point p)
+    {
+        Hexagon<T> closest = null;
+        double closestDist = Double.MAX_VALUE;
+
+        for(int i = 0; i < hexs.length; i++)
+        {
+            double dis = Utils.distanceToPoint(p.getX(), p.getY(),
+                    hexs[i].getHexGeometry().getMiddlePoint().getX(),
+                    hexs[i].getHexGeometry().getMiddlePoint().getY());
+
+            if(dis < closestDist)
+            {
+                closestDist = dis;
+                closest = hexs[i];
+            }
+        }
+
+        return closest;
     }
 }

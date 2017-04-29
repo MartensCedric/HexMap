@@ -15,8 +15,8 @@ public class Utils
         return isBetween(x, lowX, highX) && isBetween(y, lowY, highY);
     }
 
-    public static float distanceToPoint(float x1, float y1, float x2, float y2)
+    public static double distanceToPoint(double x1, double y1, double x2, double y2)
     {
-        return (float) Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+        return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
     }
 }
