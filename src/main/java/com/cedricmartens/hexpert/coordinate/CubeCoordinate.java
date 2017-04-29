@@ -30,4 +30,13 @@ public class CubeCoordinate implements Coordinate
         if (y != that.y) return false;
         return z == that.z;
     }
+
+    @Override
+    public String toString() {
+        return "CubeCoordinate{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
+    }
 }

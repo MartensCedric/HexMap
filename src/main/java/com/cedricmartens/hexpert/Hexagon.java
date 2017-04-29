@@ -59,4 +59,11 @@ public class Hexagon<T>
         result = 31 * result + (hexData != null ? hexData.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Hexagon{" +
+                "coordinate=" + coordinate +
+                '}';
+    }
 }
