@@ -19,7 +19,7 @@ public class HexGridBuilder<T> extends HexGridCore
         setOrigin(new Point(0, 0));
         setWidth(1);
         setHeight(1);
-	    built = false;
+        built = false;
     }
 
     public HexGrid<T> build()
@@ -27,24 +27,24 @@ public class HexGridBuilder<T> extends HexGridCore
         if(built || shape == null || getStyle().getOrientation() == null)
             throw new HexBuildException();
 
-            switch(shape)
-            {
-                case LINE :
-                    buildLine();
+        switch(shape)
+        {
+            case LINE :
+                buildLine();
                 break;
-                    
-                case RECTANGLE:
-                    buildRectangle();
-                    break;
-                
-                case HEXAGON:
-                    buildHexagon();
-                    break;
-            }
-            built = true;
+
+            case RECTANGLE:
+                buildRectangle();
+                break;
+
+            case HEXAGON:
+                buildHexagon();
+                break;
+        }
+        built = true;
 
 
-            return createHexGrid();
+        return createHexGrid();
     }
 
     private void buildHexagon()
@@ -55,7 +55,7 @@ public class HexGridBuilder<T> extends HexGridCore
         int totalHex = 1;
         coordinate = CubeCoordinate.class;
 
-        for(int i = 1; i < width; i++)
+        for(int i = 1; i < width/2 + 1; i++)
         {
             totalHex += 6*i;
         }
@@ -72,7 +72,7 @@ public class HexGridBuilder<T> extends HexGridCore
             Hexagon<T> middlePoint = new Hexagon<T>(new Point(x,y), new CubeCoordinate(0, 0, 0), getStyle());
             hexs[cursor] = middlePoint;
             cursor++;
-            while(currentW < width)
+            while(currentW < width/2 + 1)
             {
                 int cubeX;
                 int cubeY;
@@ -178,15 +178,15 @@ public class HexGridBuilder<T> extends HexGridCore
             throw new HexBuildException();
 
         if(getStyle().getOrientation() == HexagonOrientation.FLAT_TOP
-            && (layout != OffsetLayout.ODD_Q
-            || layout != OffsetLayout.EVEN_Q))
+                && (layout != OffsetLayout.ODD_Q
+                || layout != OffsetLayout.EVEN_Q))
         {
             throw new HexBuildException();
         }
 
         if(getStyle().getOrientation() == HexagonOrientation.POINTY_TOP
-            && (layout != OffsetLayout.ODD_R
-            || layout != OffsetLayout.EVEN_R))
+                && (layout != OffsetLayout.ODD_R
+                || layout != OffsetLayout.EVEN_R))
         {
             throw new HexBuildException();
         }
