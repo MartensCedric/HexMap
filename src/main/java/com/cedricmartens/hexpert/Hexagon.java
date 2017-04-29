@@ -41,4 +41,22 @@ public class Hexagon<T>
     public Coordinate getCoordinate() {
         return coordinate;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Hexagon<?> hexagon = (Hexagon<?>) o;
+
+        if (coordinate != null ? !coordinate.equals(hexagon.coordinate) : hexagon.coordinate != null) return false;
+        return hexData != null ? hexData.equals(hexagon.hexData) : hexagon.hexData == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = coordinate != null ? coordinate.hashCode() : 0;
+        result = 31 * result + (hexData != null ? hexData.hashCode() : 0);
+        return result;
+    }
 }
