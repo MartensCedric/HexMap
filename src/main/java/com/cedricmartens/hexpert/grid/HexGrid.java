@@ -2,11 +2,14 @@ package com.cedricmartens.hexpert.grid;
 
 import com.cedricmartens.hexpert.HexStyle;
 import com.cedricmartens.hexpert.Hexagon;
+import com.cedricmartens.hexpert.Utils;
 import com.cedricmartens.hexpert.coordinate.AxialCoordinate;
 import com.cedricmartens.hexpert.coordinate.Coordinate;
 import com.cedricmartens.hexpert.coordinate.CubeCoordinate;
 import com.cedricmartens.hexpert.coordinate.OffsetCoordinate;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -30,8 +33,8 @@ public class HexGrid<T> extends HexGridCore
 
     public Hexagon<T> getRandom()
     {
-        int x = rand.nextInt() % width/2 - 1;
-        int y = rand.nextInt() % height/2 - 1;
+        int x = rand.nextInt() % width/2;
+        int y = rand.nextInt() % height/2;
 
         if(coordinate == CubeCoordinate.class)
         {
@@ -53,5 +56,61 @@ public class HexGrid<T> extends HexGridCore
     public void setSeed(int seed)
     {
         rand = new Random(seed);
+    }
+
+    public boolean coordinateExists(Coordinate coord)
+    {
+        if(coord instanceof CubeCoordinate)
+        {
+            CubeCoordinate c = (CubeCoordinate)coord;
+            int limit = width / 2;
+
+            return Utils.isBetween(c.getX(), -limit, limit)
+                && Utils.isBetween(c.getY(), -limit, limit)
+                && Utils.isBetween(c.getZ(), -limit, limit);
+        }
+
+        return false;
+    }
+
+
+    public List<Hexagon<T>> getNeighbors(Hexagon<T> hexagon)
+    {
+        if(coordinate == CubeCoordinate.class)
+        {
+            int x = ((CubeCoordinate)hexagon.getCoordinate()).getX();
+            int y = ((CubeCoordinate)hexagon.getCoordinate()).getY();
+            int z = ((CubeCoordinate)hexagon.getCoordinate()).getZ();
+
+            List<Hexagon<T>> neighbors = new ArrayList<Hexagon<T>>();
+
+            CubeCoordinate s1 = new CubeCoordinate(x + 1, y - 1, z);
+            if(coordinateExists(s1))
+                neighbors.add(getByCoordinate(s1));
+
+            CubeCoordinate s2 = new CubeCoordinate(x - 1, y + 1, z);
+            if(coordinateExists(s2))
+                neighbors.add(getByCoordinate(s1));
+
+            CubeCoordinate s3 = new CubeCoordinate(x , y - 1, z + 1);
+            if(coordinateExists(s3))
+                neighbors.add(getByCoordinate(s1));
+
+            CubeCoordinate s4 = new CubeCoordinate(x, y + 1, z - 1);
+            if(coordinateExists(s4))
+                neighbors.add(getByCoordinate(s1));
+
+            CubeCoordinate s5 = new CubeCoordinate(x + 1, y, z - 1);
+            if(coordinateExists(s5))
+                neighbors.add(getByCoordinate(s1));
+
+            CubeCoordinate s6 = new CubeCoordinate(x - 1, y, z + 1);
+            if(coordinateExists(s6))
+                neighbors.add(getByCoordinate(s1));
+
+            return neighbors;
+        }
+
+        return null;
     }
 }

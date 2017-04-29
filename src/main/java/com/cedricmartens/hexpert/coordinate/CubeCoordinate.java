@@ -19,6 +19,18 @@ public class CubeCoordinate implements Coordinate
         this.z = z;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getZ() {
+        return z;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

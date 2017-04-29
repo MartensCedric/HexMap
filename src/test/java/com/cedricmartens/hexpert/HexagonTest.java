@@ -26,19 +26,10 @@ public class HexagonTest
                 .build();
     }
 
-    @Test
-    public void testgetByCubeCoordinate()
-    {
-        Assert.assertEquals(hex.getHexs()[0], hex.getByCoordinate(new CubeCoordinate(0, 0, 0)));
-        Assert.assertEquals(hex.getHexs()[1], hex.getByCoordinate(new CubeCoordinate(1, -1, 0)));
-        Assert.assertEquals(hex.getHexs()[7], hex.getByCoordinate(new CubeCoordinate(2, -2, 0)));
-        Assert.assertEquals(hex.getHexs()[19], hex.getByCoordinate(new CubeCoordinate(3, -3, 0)));
-        Assert.assertEquals(hex.getHexs()[23], hex.getByCoordinate(new CubeCoordinate(2, 1, -3)));
-    }
 
     @Test
-    public void testgetRandom()
+    public void testPosition()
     {
-        Assert.assertNotNull(hex.getRandom());
+
     }
 }

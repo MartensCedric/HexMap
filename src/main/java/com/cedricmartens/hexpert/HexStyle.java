@@ -11,6 +11,9 @@ public class HexStyle
     private HexagonOrientation orientation;
 
     public HexStyle(double size, HexagonOrientation orientation) {
+        if(size <= 0)
+            throw new IllegalArgumentException();
+
         setSize(size);
         setOrientation(orientation);
     }
