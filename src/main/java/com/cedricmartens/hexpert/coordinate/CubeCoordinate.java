@@ -9,7 +9,11 @@ public class CubeCoordinate implements Coordinate
     private final int y;
     private final int z;
 
-    public CubeCoordinate(int x, int y, int z) {
+    public CubeCoordinate(int x, int y, int z)
+    {
+        if(x + y + z != 0)
+            throw new InvalidCubeCoordinate();
+
         this.x = x;
         this.y = y;
         this.z = z;

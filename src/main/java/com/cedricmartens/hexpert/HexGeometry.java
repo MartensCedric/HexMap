@@ -18,7 +18,6 @@ public class HexGeometry
 
     public HexGeometry(Point middlePoint, HexStyle style)
     {
-
         this.middlePoint = middlePoint;
         this.size = style.getSize();
         this.orientation = style.getOrientation();

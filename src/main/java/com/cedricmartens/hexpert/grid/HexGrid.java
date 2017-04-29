@@ -1,6 +1,8 @@
 package com.cedricmartens.hexpert.grid;
 
+import com.cedricmartens.hexpert.HexStyle;
 import com.cedricmartens.hexpert.Hexagon;
+import com.cedricmartens.hexpert.coordinate.CubeCoordinate;
 import com.cedricmartens.hexpert.coordinate.OffsetCoordinate;
 import com.cedricmartens.hexpert.coordinate.Point;
 
@@ -14,7 +16,7 @@ public class HexGrid<T>
     private Hexagon<T>[] hexs;
     private OffsetLayout layout;
     private HexagonShape shape;
-    private HexagonOrientation orientation;
+    private HexStyle style;
     private int width;
     private int height;
     private boolean built;
@@ -29,7 +31,7 @@ public class HexGrid<T>
 
     public HexGrid build()
     {
-        if(built || shape == null || orientation == null)
+        if(built || shape == null || getStyle().getOrientation() == null)
             throw new HexBuildException();
 
             switch(shape)
@@ -54,6 +56,124 @@ public class HexGrid<T>
     {
         if(width != height || width % 2 == 0)
             throw new HexBuildException();
+
+        int totalHex = 1;
+
+        for(int i = 1; i < width; i++)
+        {
+            totalHex += 6*i;
+        }
+        hexs = new Hexagon[totalHex];
+
+        if(getStyle().getOrientation() == HexagonOrientation.FLAT_TOP)
+        {
+            int currentW = 1;
+            int cursor = 0;
+            int posX = width/2 - 1;
+            int posY = height/2 - 1;
+            double x  = posX * getStyle().getSize() * 2 + getStyle().getSize();
+            double y = posY * getStyle().getSize() * 2 * Math.sqrt(3)/2 + (getStyle().getSize() * 2 * Math.sqrt(3)/2)/2;
+            Hexagon<T> middlePoint = new Hexagon<T>(new Point(x,y), new CubeCoordinate(0, 0, 0), getStyle());
+            hexs[cursor] = middlePoint;
+            cursor++;
+            while(currentW < width)
+            {
+                int cubeX;
+                int cubeY;
+                int cubeZ;
+
+                x-= middlePoint.getHexGeometry().getWidth()*0.75;
+                y-= middlePoint.getHexGeometry().getHeight()/2;
+
+                //UP
+                for(int i = 0; i < currentW; i++)
+                {
+                    cubeX = currentW;
+                    cubeY = -currentW + i;
+                    cubeZ = -i;
+
+                    Hexagon<T> hex = new Hexagon<T>(new Point(x, y), new CubeCoordinate(cubeX, cubeY, cubeZ), getStyle());
+                    hexs[cursor] = hex;
+
+                    y+= middlePoint.getHexGeometry().getHeight();
+                    cursor++;
+                }
+
+                //LEFT UP
+                for(int i = 0; i < currentW; i++)
+                {
+                    cubeX = currentW - i;
+                    cubeY = i;
+                    cubeZ = -currentW;
+
+                    Hexagon<T> hex = new Hexagon<T>(new Point(x, y), new CubeCoordinate(cubeX, cubeY, cubeZ), getStyle());
+                    hexs[cursor] = hex;
+
+                    x-= middlePoint.getHexGeometry().getWidth()*0.75;
+                    y+= middlePoint.getHexGeometry().getHeight()/2;
+                    cursor++;
+                }
+
+                //LEFT DOWN
+                for(int i = 0; i < currentW; i++)
+                {
+                    cubeX = -i;
+                    cubeY = currentW;
+                    cubeZ = -currentW + i;
+
+                    Hexagon<T> hex = new Hexagon<T>(new Point(x, y), new CubeCoordinate(cubeX, cubeY, cubeZ), getStyle());
+                    x-= middlePoint.getHexGeometry().getWidth()*0.75;
+                    y-= middlePoint.getHexGeometry().getHeight()/2;
+                    hexs[cursor] = hex;
+                    cursor++;
+                }
+
+                //DOWN
+                for(int i = 0; i < currentW; i++)
+                {
+                    cubeX = -currentW;
+                    cubeY = currentW - i;
+                    cubeZ = i;
+
+                    Hexagon<T> hex = new Hexagon<T>(new Point(x, y), new CubeCoordinate(cubeX, cubeY, cubeZ), getStyle());
+                    hexs[cursor] = hex;
+
+                    y-= middlePoint.getHexGeometry().getHeight();
+                    cursor++;
+                }
+
+                //DOWN RIGHT
+                for(int i = 0; i < currentW; i++)
+                {
+                    cubeX = -currentW + i;
+                    cubeY = -i;
+                    cubeZ = currentW;
+
+                    Hexagon<T> hex = new Hexagon<T>(new Point(x, y), new CubeCoordinate(cubeX, cubeY, cubeZ), getStyle());
+
+                    x+= middlePoint.getHexGeometry().getWidth()*0.75;
+                    y-= middlePoint.getHexGeometry().getHeight()/2;
+
+                    hexs[cursor] = hex;
+                    cursor++;
+                }
+
+                //UP RIGHT
+                for(int i = 0; i < currentW; i++)
+                {
+                    cubeX = i;
+                    cubeY = -currentW;
+                    cubeZ = currentW - i;
+
+                    Hexagon<T> hex = new Hexagon<T>(new Point(x, y), new CubeCoordinate(cubeX, cubeY, cubeZ), getStyle());
+                    hexs[cursor] = hex;
+                    x+= middlePoint.getHexGeometry().getWidth()*0.75;
+                    y+= middlePoint.getHexGeometry().getHeight()/2;
+                    cursor++;
+                }
+                currentW++;
+            }
+        }
     }
 
     private void buildRectangle()
@@ -61,14 +181,14 @@ public class HexGrid<T>
         if(width != height || layout == null)
             throw new HexBuildException();
 
-        if(orientation == HexagonOrientation.FLAT_TOP
+        if(getStyle().getOrientation() == HexagonOrientation.FLAT_TOP
             && (layout != OffsetLayout.ODD_Q
             || layout != OffsetLayout.EVEN_Q))
         {
             throw new HexBuildException();
         }
 
-        if(orientation == HexagonOrientation.POINTY_TOP
+        if(getStyle().getOrientation() == HexagonOrientation.POINTY_TOP
             && (layout != OffsetLayout.ODD_R
             || layout != OffsetLayout.EVEN_R))
         {
@@ -77,13 +197,17 @@ public class HexGrid<T>
 
         hexs = new Hexagon[width * height];
 
-        if(orientation == HexagonOrientation.FLAT_TOP)
+        if(getStyle().getOrientation() == HexagonOrientation.FLAT_TOP)
         {
-            for(int i = 0; i < hexs.length; i++)
+            if(layout == OffsetLayout.EVEN_Q)
             {
-                OffsetCoordinate offset = new OffsetCoordinate(i % width, i / height);
-                //TODO Add hexstyle
+                for(int i = 0; i < hexs.length; i++)
+                {
+                    OffsetCoordinate offset = new OffsetCoordinate(i % width, i / height);
+
+                }
             }
+
         }else{
 
         }
@@ -144,12 +268,16 @@ public class HexGrid<T>
         return this;
     }
 
-    public HexagonOrientation getOrientation() {
-        return orientation;
+    public HexStyle getStyle() {
+        return style;
     }
 
-    public void setOrientation(HexagonOrientation orientation) {
-        this.orientation = orientation;
+    public HexGrid setStyle(HexStyle style) {
+        this.style = style;
+        return this;
     }
 
+    public Hexagon<T>[] getHexs() {
+        return hexs;
+    }
 }
