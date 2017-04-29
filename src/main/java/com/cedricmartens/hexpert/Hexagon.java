@@ -11,11 +11,14 @@ import com.cedricmartens.hexpert.grid.HexagonOrientation;
 public class Hexagon<T>
 {
     private HexGeometry hexGeometry;
+    private HexStyle style;
     private final Coordinate coordinate;
     private T hexData;
 
-    public Hexagon(Point center, double size, Coordinate coordinate) {
-        hexGeometry = new HexGeometry(center, size, HexagonOrientation.POINTY_TOP);
+    public Hexagon(Point center, Coordinate coordinate, HexStyle style)
+    {
+        this.style = style;
+        hexGeometry = new HexGeometry(center, style);
         this.coordinate = coordinate;
     }
 

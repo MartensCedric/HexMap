@@ -14,7 +14,8 @@ public class HexGeometryTest
     @Test
     public void testFlat()
     {
-        HexGeometry coord = new HexGeometry(new Point(4, 5), 5, HexagonOrientation.FLAT_TOP);
+        HexStyle style = new HexStyle(5, HexagonOrientation.FLAT_TOP);
+        HexGeometry coord = new HexGeometry(new Point(4, 5), style);
 
         Assert.assertEquals(new Point(9, 5), coord.getPoints().get(0));
         Assert.assertEquals(new Point(6.50, 9.33), coord.getPoints().get(1));
@@ -28,7 +29,8 @@ public class HexGeometryTest
     @Test
     public void testPointy()
     {
-        HexGeometry coord = new HexGeometry(new Point(-2, 3), 7, HexagonOrientation.POINTY_TOP);
+        HexStyle style = new HexStyle(7, HexagonOrientation.POINTY_TOP);
+        HexGeometry coord = new HexGeometry(new Point(-2, 3), style);
 
         Assert.assertEquals(new Point(4.06, 6.5), coord.getPoints().get(0));
         Assert.assertEquals(new Point(-2, 10), coord.getPoints().get(1));
@@ -42,28 +44,32 @@ public class HexGeometryTest
     @Test
     public void testWidthFlat()
     {
-        HexGeometry coord = new HexGeometry(new Point(-2, 3), 7, HexagonOrientation.FLAT_TOP);
+        HexStyle style = new HexStyle(7, HexagonOrientation.FLAT_TOP);
+        HexGeometry coord = new HexGeometry(new Point(-2, 3), style);
         Assert.assertEquals(14, coord.getWidth(), 0);
     }
 
     @Test
     public void testHeightFlat()
     {
-        HexGeometry coord = new HexGeometry(new Point(-2, 3), 7, HexagonOrientation.FLAT_TOP);
+        HexStyle style = new HexStyle(7, HexagonOrientation.FLAT_TOP);
+        HexGeometry coord = new HexGeometry(new Point(-2, 3), style);
         Assert.assertEquals(12.124, coord.getHeight(), 0.001);
     }
 
     @Test
     public void testWidthPointy()
     {
-        HexGeometry coord = new HexGeometry(new Point(-2, 3), 7, HexagonOrientation.POINTY_TOP);
+        HexStyle style = new HexStyle(7, HexagonOrientation.POINTY_TOP);
+        HexGeometry coord = new HexGeometry(new Point(-2, 3), style);
         Assert.assertEquals(12.124, coord.getWidth(), 0.001);
     }
 
     @Test
     public void testHeightPointy()
     {
-        HexGeometry coord = new HexGeometry(new Point(-2, 3), 7, HexagonOrientation.POINTY_TOP);
+        HexStyle style = new HexStyle(7, HexagonOrientation.POINTY_TOP);
+        HexGeometry coord = new HexGeometry(new Point(-2, 3), style);
         Assert.assertEquals(14, coord.getHeight(), 0);
     }
 }

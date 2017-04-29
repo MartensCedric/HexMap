@@ -9,7 +9,6 @@ import java.util.List;
 /**
  * Created by Cedric Martens on 2017-04-27.
  */
-
 public class HexGeometry
 {
     private HexagonOrientation orientation;
@@ -17,15 +16,13 @@ public class HexGeometry
     private List<Point> points;
     private double size;
 
-    public HexGeometry(Point middlePoint, double size, HexagonOrientation orientation)
+    public HexGeometry(Point middlePoint, HexStyle style)
     {
-        if(size <= 0)
-            throw new IllegalArgumentException();
 
         this.middlePoint = middlePoint;
-        this.size = size;
+        this.size = style.getSize();
+        this.orientation = style.getOrientation();
         this.points = new ArrayList<Point>();
-        this.orientation = orientation;
 
         for(int i = 0; i < 6; i++)
         {
