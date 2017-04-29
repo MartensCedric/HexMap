@@ -113,4 +113,41 @@ public class HexGrid<T> extends HexGridCore
 
         return null;
     }
+
+    public List<Hexagon<T>> getOuterHexagons()
+    {
+        if(coordinate == CubeCoordinate.class)
+        {
+            List<Hexagon<T>> outers = new ArrayList<Hexagon<T>>();
+            for(int i = 0; i < hexs.length; i++)
+            {
+                if(isOuter(hexs[i]))
+                    outers.add(hexs[i]);
+            }
+            return outers;
+        }
+
+        return null;
+    }
+
+    public List<Hexagon<T>> getInnerHexagons()
+    {
+        if(coordinate == CubeCoordinate.class)
+        {
+            List<Hexagon<T>> inners = new ArrayList<Hexagon<T>>();
+            for(int i = 0; i < hexs.length; i++)
+            {
+                if(!isOuter(hexs[i]))
+                    inners.add(hexs[i]);
+            }
+            return inners;
+        }
+
+        return null;
+    }
+
+    public boolean isOuter(Hexagon<T> hex)
+    {
+        return getNeighbors(hex).size() <= 4;
+    }
 }
