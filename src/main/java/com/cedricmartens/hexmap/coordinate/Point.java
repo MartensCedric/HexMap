@@ -14,14 +14,6 @@ public class Point
         this.y = y;
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
     @Override
     public boolean equals(Object o)
     {

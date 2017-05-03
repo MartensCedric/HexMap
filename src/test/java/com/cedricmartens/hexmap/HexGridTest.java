@@ -16,6 +16,7 @@ import org.junit.Test;
 public class HexGridTest
 {
     private static HexGrid<Integer> hex;
+
     @BeforeClass
     public static void initClass()
     {

@@ -39,7 +39,7 @@ public abstract class HexBuilder<T>
         return style;
     }
 
-    public abstract HexBuilder<T> build();
+    public abstract HexGrid<T> build();
 
     protected HexGrid<T> createGrid() {
 
@@ -50,5 +50,11 @@ public abstract class HexBuilder<T>
        grid.setCoordinateSystem(coordinateSystem);
        grid.hexs = hexs;
        return grid;
+    }
+
+    protected void checkBuilt()
+    {
+        if(built)
+            throw new HexBuildException();
     }
 }

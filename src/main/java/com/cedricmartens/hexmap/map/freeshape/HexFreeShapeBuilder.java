@@ -29,14 +29,16 @@ public class HexFreeShapeBuilder<T> extends HexBuilder
         shape = HexagonShape.FREE;
     }
 
-    public void setStyle(HexStyle style)
+    public HexFreeShapeBuilder<T> setStyle(HexStyle style)
     {
         this.style = style;
+        return this;
     }
 
-    public void setCoordinateSystem(Class<? extends CoordinateSystem> coordinateSystem)
+    public HexFreeShapeBuilder<T> setCoordinateSystem(Class<? extends CoordinateSystem> coordinateSystem)
     {
         this.coordinateSystem = coordinateSystem;
+        return this;
     }
 
     public void addHex(Point p)
@@ -55,14 +57,14 @@ public class HexFreeShapeBuilder<T> extends HexBuilder
             throw new HexBuildException();
 
         double degrees = side * 60;
-        degrees += style.getOrientation() == HexagonOrientation.POINTY_TOP ? 30 : 0;
+        degrees += style.getOrientation() == HexagonOrientation.POINTY_TOP ? 0 : -30;
         double rad = Math.PI/180.0 * degrees;
         double x = hexGeometry.getMiddlePoint().x + style.getSize() * Math.cos(rad);
         double y = hexGeometry.getMiddlePoint().y + style.getSize() * Math.sin(rad);
         hexGeometries.add(new HexGeometry(new Point(x, y), style));
     }
 
-    public HexBuilder build()
+    public HexGrid<T> build()
     {
         hexs = new Hexagon[hexGeometries.size()];
 

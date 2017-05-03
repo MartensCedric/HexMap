@@ -30,20 +30,23 @@ public class HexGrid<T> extends HexGridBuilder
 
     public Hexagon<T> getRandom()
     {
-        int x = rand.nextInt() % width/2;
-        int y = rand.nextInt() % height/2;
+        int x = rand.nextInt(width/2);
+        int y = rand.nextInt(height/2);
 
         if(coordinateSystem == CubeCoordinate.class)
         {
             int z = -x + -y;
             return getByCoordinate(new CubeCoordinate(x, y, z));
-        }else if(coordinateSystem == OffsetCoordinate.class)
+        }
+        else if(coordinateSystem == OffsetCoordinate.class)
         {
             return getByCoordinate(new OffsetCoordinate(x, y));
-        }else if (coordinateSystem == AxialCoordinate.class)
+        }
+        else if (coordinateSystem == AxialCoordinate.class)
         {
             return getByCoordinate(new AxialCoordinate(x, y));
-        }else
+        }
+        else
         {
             return null;
         }
@@ -115,7 +118,7 @@ public class HexGrid<T> extends HexGridBuilder
     {
         if(coordinateSystem == CubeCoordinate.class)
         {
-            List<Hexagon<T>> outers = new ArrayList<Hexagon<T>>();
+            List<Hexagon<T>> outers = new ArrayList<>();
             for(int i = 0; i < hexs.length; i++)
             {
                 if(isOuter(hexs[i]))
@@ -155,9 +158,9 @@ public class HexGrid<T> extends HexGridBuilder
 
         for(int i = 0; i < hexs.length; i++)
         {
-            double dis = Utils.distanceToPoint(p.getX(), p.getY(),
-                    hexs[i].getHexGeometry().getMiddlePoint().getX(),
-                    hexs[i].getHexGeometry().getMiddlePoint().getY());
+            double dis = Utils.distanceToPoint(p.x, p.y,
+                    hexs[i].getHexGeometry().getMiddlePoint().x,
+                    hexs[i].getHexGeometry().getMiddlePoint().y);
 
             if(dis < closestDist)
             {

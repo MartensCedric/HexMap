@@ -74,8 +74,8 @@ public class HexGridBuilder<T> extends HexBuilder
             int cursor = 0;
             int posX = width/2 - 1;
             int posY = height/2 - 1;
-            double x  = posX * getStyle().getSize() * 2 + getStyle().getSize() + getOrigin().getX();
-            double y = posY * getStyle().getSize() * 2 * Math.sqrt(3)/2 + (getStyle().getSize() * 2 * Math.sqrt(3)/2)/2  + getOrigin().getY();
+            double x  = posX * getStyle().getSize() * 2 + getStyle().getSize() + getOrigin().x;
+            double y = posY * getStyle().getSize() * 2 * Math.sqrt(3)/2 + (getStyle().getSize() * 2 * Math.sqrt(3)/2)/2  + getOrigin().y;
             Hexagon<T> middlePoint = new Hexagon<T>(new Point(x,y), new CubeCoordinate(0, 0, 0), getStyle());
             hexs[cursor] = middlePoint;
             cursor++;
@@ -273,13 +273,6 @@ public class HexGridBuilder<T> extends HexBuilder
         this.style = style;
         return this;
     }
-
-    private void checkBuilt()
-    {
-        if(built)
-            throw new HexBuildException();
-    }
-
     @Override
     protected HexGrid createGrid() {
 
