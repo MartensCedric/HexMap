@@ -1,5 +1,6 @@
 package com.cedricmartens.hexmap.map.grid;
 
+import com.cedricmartens.hexmap.Utils;
 import com.cedricmartens.hexmap.coordinate.CoordinateSystem;
 import com.cedricmartens.hexmap.coordinate.CubeCoordinate;
 import com.cedricmartens.hexmap.coordinate.OffsetCoordinate;
@@ -9,6 +10,9 @@ import com.cedricmartens.hexmap.hexagon.Hexagon;
 import com.cedricmartens.hexmap.hexagon.HexagonOrientation;
 import com.cedricmartens.hexmap.hexagon.HexagonShape;
 import com.cedricmartens.hexmap.map.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Cedric Martens on 2017-04-27.
@@ -47,6 +51,11 @@ public class HexGridBuilder<T> extends HexBuilder
             case HEXAGON:
                 buildHexagon();
                 break;
+        }
+
+        for(int i = 0; i < hexs.length; i++)
+        {
+            hexs[i].setNeighbors(findNeighbors(hexs[i]));
         }
 
         HexGrid<T> grid = createGrid();
@@ -177,6 +186,76 @@ public class HexGridBuilder<T> extends HexBuilder
                 currentW++;
             }
         }
+    }
+
+
+    private List<Hexagon<T>> findNeighbors(Hexagon<T> hexagon)
+    {
+        List<Hexagon<T>> neighbors = new ArrayList<>();
+
+        if(coordinateSystem == CubeCoordinate.class)
+        {
+            int x = ((CubeCoordinate)hexagon.getCoordinateSystem()).getX();
+            int y = ((CubeCoordinate)hexagon.getCoordinateSystem()).getY();
+            int z = ((CubeCoordinate)hexagon.getCoordinateSystem()).getZ();
+
+            CubeCoordinate s1 = new CubeCoordinate(x + 1, y - 1, z);
+            if(coordinateExists(s1))
+                neighbors.add(getByCoordinate(s1));
+
+            CubeCoordinate s2 = new CubeCoordinate(x - 1, y + 1, z);
+            if(coordinateExists(s2))
+                neighbors.add(getByCoordinate(s1));
+
+            CubeCoordinate s3 = new CubeCoordinate(x , y - 1, z + 1);
+            if(coordinateExists(s3))
+                neighbors.add(getByCoordinate(s1));
+
+            CubeCoordinate s4 = new CubeCoordinate(x, y + 1, z - 1);
+            if(coordinateExists(s4))
+                neighbors.add(getByCoordinate(s1));
+
+            CubeCoordinate s5 = new CubeCoordinate(x + 1, y, z - 1);
+            if(coordinateExists(s5))
+                neighbors.add(getByCoordinate(s1));
+
+            CubeCoordinate s6 = new CubeCoordinate(x - 1, y, z + 1);
+            if(coordinateExists(s6))
+                neighbors.add(getByCoordinate(s1));
+
+            return neighbors;
+        }
+
+        return null;
+    }
+
+    public Hexagon<T> getByCoordinate(CoordinateSystem coordinateSystem)
+    {
+        for(int i = 0; i < hexs.length; i++)
+        {
+            if(hexs[i].getCoordinateSystem().equals(coordinateSystem))
+            {
+                return hexs[i];
+            }
+        }
+        return null;
+    }
+
+
+
+    public boolean coordinateExists(CoordinateSystem coord)
+    {
+        if(coord instanceof CubeCoordinate)
+        {
+            CubeCoordinate c = (CubeCoordinate)coord;
+            int limit = width / 2;
+
+            return Utils.isBetween(c.getX(), -limit, limit)
+                    && Utils.isBetween(c.getY(), -limit, limit)
+                    && Utils.isBetween(c.getZ(), -limit, limit);
+        }
+
+        return false;
     }
 
     private void buildRectangle()
