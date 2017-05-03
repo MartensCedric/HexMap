@@ -2,6 +2,10 @@ package com.cedricmartens.hexmap.hexagon;
 
 import com.cedricmartens.hexmap.coordinate.CoordinateSystem;
 import com.cedricmartens.hexmap.coordinate.Point;
+import org.w3c.dom.ls.LSException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Cedric Martens on 2017-04-27.
@@ -13,11 +17,13 @@ public class Hexagon<T>
     private HexStyle style;
     private final CoordinateSystem coordinateSystem;
     private T hexData;
+    private List<Hexagon<T>> neighbors;
 
     public Hexagon(Point center, CoordinateSystem coordinateSystem, HexStyle style)
     {
         this.style = style;
         hexGeometry = new HexGeometry(center, style);
+        neighbors = new ArrayList<>();
         this.coordinateSystem = coordinateSystem;
     }
 
@@ -46,6 +52,11 @@ public class Hexagon<T>
 
     public CoordinateSystem getCoordinateSystem() {
         return coordinateSystem;
+    }
+
+    public List<Hexagon<T>> getNeighbors()
+    {
+        return neighbors;
     }
 
     @Override

@@ -73,16 +73,15 @@ public class HexGrid<T> extends HexGridBuilder
         return false;
     }
 
-
+/*
     public List<Hexagon<T>> getNeighbors(Hexagon<T> hexagon)
     {
+
         if(coordinateSystem == CubeCoordinate.class)
         {
             int x = ((CubeCoordinate)hexagon.getCoordinateSystem()).getX();
             int y = ((CubeCoordinate)hexagon.getCoordinateSystem()).getY();
             int z = ((CubeCoordinate)hexagon.getCoordinateSystem()).getZ();
-
-            List<Hexagon<T>> neighbors = new ArrayList<Hexagon<T>>();
 
             CubeCoordinate s1 = new CubeCoordinate(x + 1, y - 1, z);
             if(coordinateExists(s1))
@@ -113,7 +112,7 @@ public class HexGrid<T> extends HexGridBuilder
 
         return null;
     }
-
+*/
     public List<Hexagon<T>> getOuterHexagons()
     {
         if(coordinateSystem == CubeCoordinate.class)
@@ -148,7 +147,7 @@ public class HexGrid<T> extends HexGridBuilder
 
     public boolean isOuter(Hexagon<T> hex)
     {
-        return getNeighbors(hex).size() <= 4;
+        return hex.getNeighbors().size() <= 4;
     }
 
     public Hexagon<T> getAt(Point p)

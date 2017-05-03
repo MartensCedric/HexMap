@@ -20,12 +20,12 @@ import java.util.List;
  */
 public class HexFreeShapeBuilder<T> extends HexBuilder
 {
-    private List<HexGeometry> hexGeometries;
+    private List<Hexagon<T>> hexagons;
 
     public HexFreeShapeBuilder()
     {
         origin = new Point(0, 0);
-        hexGeometries = new ArrayList<HexGeometry>();
+        hexagons = new ArrayList<Hexagon<T>>();
         shape = HexagonShape.FREE;
     }
 
@@ -43,15 +43,15 @@ public class HexFreeShapeBuilder<T> extends HexBuilder
 
     public void addHex(Point p)
     {
-        hexGeometries.add(new HexGeometry(p, style));
+        hexagons.add(new Hexagon<T>(p, new IndexedCoordinate(hexagons.size()),style));
     }
 
     public void addHexNextTo(int n, int side)
     {
-        addHexNextTo(hexGeometries.get(n), side);
+        addHexNextTo(hexagons.get(n), side);
     }
 
-    public void addHexNextTo(HexGeometry hexGeometry, int side)
+    public void addHexNextTo(Hexagon<T> hexagon, int side)
     {
         if(side >= 6)
             throw new HexBuildException();
@@ -59,18 +59,18 @@ public class HexFreeShapeBuilder<T> extends HexBuilder
         double degrees = side * 60;
         degrees += style.getOrientation() == HexagonOrientation.POINTY_TOP ? 0 : -30;
         double rad = Math.PI/180.0 * degrees;
-        double x = hexGeometry.getMiddlePoint().x + style.getSize() * Math.cos(rad);
-        double y = hexGeometry.getMiddlePoint().y + style.getSize() * Math.sin(rad);
-        hexGeometries.add(new HexGeometry(new Point(x, y), style));
+        double x = hexagon.getHexGeometry().getMiddlePoint().x + hexagon.getHexGeometry().getWidth() * Math.cos(rad);
+        double y = hexagon.getHexGeometry().getMiddlePoint().y + hexagon.getHexGeometry().getHeight() * Math.sin(rad);
+        addHex(new Point(x, y));
     }
 
     public HexGrid<T> build()
     {
-        hexs = new Hexagon[hexGeometries.size()];
+        hexs = new Hexagon[hexagons.size()];
 
-        for(int i = 0; i < hexGeometries.size(); i++)
+        for(int i = 0; i < hexagons.size(); i++)
         {
-            hexs[i] = new Hexagon(hexGeometries.get(i), new IndexedCoordinate(i), style);
+            hexs[i] = hexagons.get(i);
         }
 
         HexGrid<T> grid = createGrid();

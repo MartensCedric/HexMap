@@ -46,7 +46,7 @@ public class HexFreeShapeBuilderTest
                             hex3.getMiddlePoint().x, 0);
 
         Assert.assertEquals(hex0.getMiddlePoint().y,
-                hex3.getMiddlePoint().y - hex0.getHeight(), 0);
+                hex3.getMiddlePoint().y - hex3.getHeight(), 0);
     }
 
 }
