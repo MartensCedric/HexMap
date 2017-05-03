@@ -70,7 +70,30 @@ public class HexFreeShapeBuilder<T> extends HexBuilder
 
         for(int i = 0; i < hexagons.size(); i++)
         {
-            hexs[i] = hexagons.get(i);
+            Hexagon<T> hex = hexagons.get(i);
+
+            List<Hexagon<T>> neighbors = new ArrayList<>();
+            for(int j = 0; j < 6; j++)
+            {
+                double degrees = j * 60;
+                degrees += style.getOrientation() == HexagonOrientation.POINTY_TOP ? 0 : -30;
+                double rad = Math.PI/180.0 * degrees;
+                double x = hex.getHexGeometry().getMiddlePoint().x + hex.getHexGeometry().getWidth() * Math.cos(rad);
+                double y = hex.getHexGeometry().getMiddlePoint().y + hex.getHexGeometry().getHeight() * Math.sin(rad);
+                Point p = new Point(x,y);
+
+                for(Hexagon<T> h : hexagons)
+                {
+                    if(h.getHexGeometry().getMiddlePoint().equals(p))
+                    {
+                        neighbors.add(h);
+                    }
+                }
+            }
+
+            hex.setNeighbors(neighbors);
+
+            hexs[i] = hex;
         }
 
         HexGrid<T> grid = createGrid();

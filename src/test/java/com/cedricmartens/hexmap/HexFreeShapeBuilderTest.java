@@ -32,7 +32,7 @@ public class HexFreeShapeBuilderTest
         hexFSB.addHexNextTo(0, 0);
         hexFSB.addHexNextTo(1, 2);
         hexFSB.addHexNextTo(2, 3);
-        hexFSB.addHexNextTo(0, 5);
+        hexFSB.addHexNextTo(0, 4);
         hex = hexFSB.build();
     }
 
@@ -47,6 +47,14 @@ public class HexFreeShapeBuilderTest
 
         Assert.assertEquals(hex0.getMiddlePoint().y,
                 hex3.getMiddlePoint().y - hex3.getHeight(), 0);
+    }
+
+    @Test
+    public void testNeighbors()
+    {
+        Assert.assertEquals(4, hex.getHexs()[0].getNeighbors().size());
+        Assert.assertEquals(2, hex.getHexs()[3].getNeighbors().size());
+        Assert.assertEquals(1, hex.getHexs()[4].getNeighbors().size());
     }
 
 }

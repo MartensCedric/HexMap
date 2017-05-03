@@ -59,6 +59,10 @@ public class Hexagon<T>
         return neighbors;
     }
 
+    public void setNeighbors(List<Hexagon<T>> neighbors) {
+        this.neighbors = neighbors;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
