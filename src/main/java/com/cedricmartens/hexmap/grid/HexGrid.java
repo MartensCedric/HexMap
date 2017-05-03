@@ -15,11 +15,11 @@ public class HexGrid<T> extends HexGridBuilder
 {
     private static Random rand = new Random();
 
-    public Hexagon<T> getByCoordinate(Coordinate coordinate)
+    public Hexagon<T> getByCoordinate(CoordinateSystem coordinateSystem)
     {
         for(int i = 0; i < hexs.length; i++)
         {
-            if(hexs[i].getCoordinate().equals(coordinate))
+            if(hexs[i].getCoordinateSystem().equals(coordinateSystem))
             {
                 return hexs[i];
             }
@@ -54,7 +54,7 @@ public class HexGrid<T> extends HexGridBuilder
         rand = new Random(seed);
     }
 
-    public boolean coordinateExists(Coordinate coord)
+    public boolean coordinateExists(CoordinateSystem coord)
     {
         if(coord instanceof CubeCoordinate)
         {
@@ -74,9 +74,9 @@ public class HexGrid<T> extends HexGridBuilder
     {
         if(coordinateSystem == CubeCoordinate.class)
         {
-            int x = ((CubeCoordinate)hexagon.getCoordinate()).getX();
-            int y = ((CubeCoordinate)hexagon.getCoordinate()).getY();
-            int z = ((CubeCoordinate)hexagon.getCoordinate()).getZ();
+            int x = ((CubeCoordinate)hexagon.getCoordinateSystem()).getX();
+            int y = ((CubeCoordinate)hexagon.getCoordinateSystem()).getY();
+            int z = ((CubeCoordinate)hexagon.getCoordinateSystem()).getZ();
 
             List<Hexagon<T>> neighbors = new ArrayList<Hexagon<T>>();
 

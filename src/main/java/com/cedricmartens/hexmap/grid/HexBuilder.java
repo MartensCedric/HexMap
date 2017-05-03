@@ -2,7 +2,7 @@ package com.cedricmartens.hexmap.grid;
 
 import com.cedricmartens.hexmap.HexStyle;
 import com.cedricmartens.hexmap.Hexagon;
-import com.cedricmartens.hexmap.coordinate.Coordinate;
+import com.cedricmartens.hexmap.coordinate.CoordinateSystem;
 import com.cedricmartens.hexmap.coordinate.Point;
 
 /**
@@ -16,9 +16,9 @@ public abstract class HexBuilder<T>
     protected HexagonShape shape;
     protected HexStyle style;
 
-    protected Class<? extends Coordinate> coordinateSystem;
+    protected Class<? extends CoordinateSystem> coordinateSystem;
 
-    public Class<? extends Coordinate> getCoordinateSystem() {
+    public Class<? extends CoordinateSystem> getCoordinateSystem() {
         return coordinateSystem;
     }
 
@@ -39,4 +39,15 @@ public abstract class HexBuilder<T>
     }
 
     public abstract HexBuilder<T> build();
+
+    protected HexGrid<T> createGrid() {
+
+       HexGrid grid = new HexGrid();
+       grid.setOrigin(origin);
+       grid.setShape(shape);
+       grid.setStyle(style);
+       grid.setCoordinateSystem(coordinateSystem);
+       grid.hexs = hexs;
+       return grid;
+    }
 }

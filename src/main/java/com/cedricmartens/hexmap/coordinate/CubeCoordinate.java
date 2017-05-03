@@ -3,7 +3,7 @@ package com.cedricmartens.hexmap.coordinate;
 /**
  * Created by 1544256 on 2017-04-28.
  */
-public class CubeCoordinate implements Coordinate
+public class CubeCoordinate implements CoordinateSystem
 {
     private final int x;
     private final int y;

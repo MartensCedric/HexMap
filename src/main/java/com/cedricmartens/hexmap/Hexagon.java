@@ -1,6 +1,6 @@
 package com.cedricmartens.hexmap;
 
-import com.cedricmartens.hexmap.coordinate.Coordinate;
+import com.cedricmartens.hexmap.coordinate.CoordinateSystem;
 import com.cedricmartens.hexmap.coordinate.Point;
 
 /**
@@ -11,14 +11,21 @@ public class Hexagon<T>
 {
     private HexGeometry hexGeometry;
     private HexStyle style;
-    private final Coordinate coordinate;
+    private final CoordinateSystem coordinateSystem;
     private T hexData;
 
-    public Hexagon(Point center, Coordinate coordinate, HexStyle style)
+    public Hexagon(Point center, CoordinateSystem coordinateSystem, HexStyle style)
     {
         this.style = style;
         hexGeometry = new HexGeometry(center, style);
-        this.coordinate = coordinate;
+        this.coordinateSystem = coordinateSystem;
+    }
+
+    public Hexagon(HexGeometry geo, CoordinateSystem coordinateSystem, HexStyle style)
+    {
+        this.style = style;
+        this.hexGeometry = geo;
+        this.coordinateSystem = coordinateSystem;
     }
 
     public HexGeometry getHexGeometry() {
@@ -37,8 +44,8 @@ public class Hexagon<T>
         this.hexData = hexData;
     }
 
-    public Coordinate getCoordinate() {
-        return coordinate;
+    public CoordinateSystem getCoordinateSystem() {
+        return coordinateSystem;
     }
 
     @Override
@@ -48,13 +55,13 @@ public class Hexagon<T>
 
         Hexagon<?> hexagon = (Hexagon<?>) o;
 
-        if (coordinate != null ? !coordinate.equals(hexagon.coordinate) : hexagon.coordinate != null) return false;
+        if (coordinateSystem != null ? !coordinateSystem.equals(hexagon.coordinateSystem) : hexagon.coordinateSystem != null) return false;
         return hexData != null ? hexData.equals(hexagon.hexData) : hexagon.hexData == null;
     }
 
     @Override
     public int hashCode() {
-        int result = coordinate != null ? coordinate.hashCode() : 0;
+        int result = coordinateSystem != null ? coordinateSystem.hashCode() : 0;
         result = 31 * result + (hexData != null ? hexData.hashCode() : 0);
         return result;
     }
@@ -62,7 +69,7 @@ public class Hexagon<T>
     @Override
     public String toString() {
         return "Hexagon{" +
-                "coordinate=" + coordinate +
+                "coordinateSystem=" + coordinateSystem +
                 '}';
     }
 }

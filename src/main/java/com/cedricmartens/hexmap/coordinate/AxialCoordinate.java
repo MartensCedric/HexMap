@@ -3,7 +3,7 @@ package com.cedricmartens.hexmap.coordinate;
 /**
  * Created by 1544256 on 2017-04-28.
  */
-public class AxialCoordinate implements Coordinate
+public class AxialCoordinate implements CoordinateSystem
 {
     public final int x;
     public final int y;

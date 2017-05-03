@@ -2,7 +2,9 @@ package com.cedricmartens.hexmap.grid;
 
 import com.cedricmartens.hexmap.HexGeometry;
 import com.cedricmartens.hexmap.HexStyle;
-import com.cedricmartens.hexmap.coordinate.Coordinate;
+import com.cedricmartens.hexmap.Hexagon;
+import com.cedricmartens.hexmap.coordinate.CoordinateSystem;
+import com.cedricmartens.hexmap.coordinate.IndexedCoordinate;
 import com.cedricmartens.hexmap.coordinate.Point;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class HexFreeShapeBuilder<T> extends HexBuilder
         this.style = style;
     }
 
-    public void setCoordinateSystem(Class<? extends Coordinate> coordinateSystem)
+    public void setCoordinateSystem(Class<? extends CoordinateSystem> coordinateSystem)
     {
         this.coordinateSystem = coordinateSystem;
     }
@@ -55,7 +57,18 @@ public class HexFreeShapeBuilder<T> extends HexBuilder
         hexGeometries.add(new HexGeometry(new Point(x, y), style));
     }
 
-    public HexBuilder build() {
-        return null;
+    public HexBuilder build()
+    {
+        hexs = new Hexagon[hexGeometries.size()];
+
+        for(int i = 0; i < hexGeometries.size(); i++)
+        {
+            hexs[i] = new Hexagon(hexGeometries.get(i), new IndexedCoordinate(i), style);
+        }
+
+        HexGrid<T> grid = createGrid();
+        built = true;
+
+        return grid;
     }
 }

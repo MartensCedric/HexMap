@@ -2,6 +2,7 @@ package com.cedricmartens.hexmap.grid;
 
 import com.cedricmartens.hexmap.HexStyle;
 import com.cedricmartens.hexmap.Hexagon;
+import com.cedricmartens.hexmap.coordinate.CoordinateSystem;
 import com.cedricmartens.hexmap.coordinate.CubeCoordinate;
 import com.cedricmartens.hexmap.coordinate.OffsetCoordinate;
 import com.cedricmartens.hexmap.coordinate.Point;
@@ -44,10 +45,10 @@ public class HexGridBuilder<T> extends HexBuilder
                 buildHexagon();
                 break;
         }
+
+        HexGrid<T> grid = createGrid();
         built = true;
-
-
-        return createHexGrid();
+        return grid;
     }
 
     private void buildHexagon()
@@ -244,6 +245,12 @@ public class HexGridBuilder<T> extends HexBuilder
         return this;
     }
 
+    public HexGridBuilder<T> setCoordinateSystem(Class<? extends CoordinateSystem> system)
+    {
+        checkBuilt();
+        this.coordinateSystem = system;
+        return this;
+    }
 
     public HexGridBuilder setShape(HexagonShape shape)
     {
@@ -270,16 +277,12 @@ public class HexGridBuilder<T> extends HexBuilder
             throw new HexBuildException();
     }
 
-    private HexGrid<T> createHexGrid()
-    {
-        HexGrid<T> grid = new HexGrid<T>();
-        grid.shape = this.shape;
-        grid.hexs = this.hexs;
-        grid.coordinateSystem = this.coordinateSystem;
-        grid.origin = this.origin;
+    @Override
+    protected HexGrid createGrid() {
+
+        HexGrid<T> grid = super.createGrid();
         grid.height = this.height;
         grid.width = this.width;
-        grid.style = this.style;
         return grid;
     }
 }
