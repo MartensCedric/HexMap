@@ -1,10 +1,11 @@
 package com.cedricmartens.hexmap;
 
 import com.cedricmartens.hexmap.coordinate.CubeCoordinate;
-import com.cedricmartens.hexmap.grid.HexGrid;
-import com.cedricmartens.hexmap.grid.HexGridBuilder;
-import com.cedricmartens.hexmap.grid.HexagonOrientation;
-import com.cedricmartens.hexmap.grid.HexagonShape;
+import com.cedricmartens.hexmap.hexagon.HexStyle;
+import com.cedricmartens.hexmap.hexagon.HexagonOrientation;
+import com.cedricmartens.hexmap.hexagon.HexagonShape;
+import com.cedricmartens.hexmap.map.HexGrid;
+import com.cedricmartens.hexmap.map.grid.HexGridBuilder;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.cedricmartens.hexmap;
+package com.cedricmartens.hexmap.hexagon;
 
 import com.cedricmartens.hexmap.coordinate.CoordinateSystem;
 import com.cedricmartens.hexmap.coordinate.Point;

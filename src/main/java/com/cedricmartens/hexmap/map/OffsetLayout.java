@@ -1,4 +1,4 @@
-package com.cedricmartens.hexmap.grid;
+package com.cedricmartens.hexmap.map;
 
 /**
  * Created by 1544256 on 2017-04-28.

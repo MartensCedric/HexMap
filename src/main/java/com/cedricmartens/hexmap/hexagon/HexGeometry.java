@@ -1,7 +1,6 @@
-package com.cedricmartens.hexmap;
+package com.cedricmartens.hexmap.hexagon;
 
 import com.cedricmartens.hexmap.coordinate.Point;
-import com.cedricmartens.hexmap.grid.HexagonOrientation;
 
 import java.util.ArrayList;
 import java.util.List;

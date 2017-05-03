@@ -1,7 +1,8 @@
-package com.cedricmartens.hexmap.grid;
+package com.cedricmartens.hexmap.map;
 
-import com.cedricmartens.hexmap.HexStyle;
-import com.cedricmartens.hexmap.Hexagon;
+import com.cedricmartens.hexmap.hexagon.HexStyle;
+import com.cedricmartens.hexmap.hexagon.Hexagon;
+import com.cedricmartens.hexmap.hexagon.HexagonShape;
 import com.cedricmartens.hexmap.coordinate.CoordinateSystem;
 import com.cedricmartens.hexmap.coordinate.Point;
 

@@ -1,7 +1,9 @@
 package com.cedricmartens.hexmap;
 
-import com.cedricmartens.hexmap.grid.HexagonOrientation;
 import com.cedricmartens.hexmap.coordinate.Point;
+import com.cedricmartens.hexmap.hexagon.HexGeometry;
+import com.cedricmartens.hexmap.hexagon.HexStyle;
+import com.cedricmartens.hexmap.hexagon.HexagonOrientation;
 import org.junit.Assert;
 import org.junit.Test;
 

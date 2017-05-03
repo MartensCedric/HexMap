@@ -1,6 +1,4 @@
-package com.cedricmartens.hexmap;
-
-import com.cedricmartens.hexmap.grid.HexagonOrientation;
+package com.cedricmartens.hexmap.hexagon;
 
 /**
  * Created by 1544256 on 2017-04-28.

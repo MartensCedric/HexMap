@@ -1,8 +1,9 @@
-package com.cedricmartens.hexmap.grid;
+package com.cedricmartens.hexmap.map;
 
-import com.cedricmartens.hexmap.Hexagon;
+import com.cedricmartens.hexmap.hexagon.Hexagon;
 import com.cedricmartens.hexmap.Utils;
 import com.cedricmartens.hexmap.coordinate.*;
+import com.cedricmartens.hexmap.map.grid.HexGridBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
