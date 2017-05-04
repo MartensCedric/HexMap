@@ -15,7 +15,7 @@ public class HexGridBuilderTest
 {
     private static HexGrid<Integer> hex;
     @BeforeClass
-    public void init()
+    public static void init()
     {
         hex = new HexGridBuilder<Integer>()
                 .setHeight(7)
@@ -26,6 +26,7 @@ public class HexGridBuilderTest
                 .build();
     }
 
+    @Test
     public void testNeighbors()
     {
         Hexagon<Integer> hex0 = hex.getHexs()[0];

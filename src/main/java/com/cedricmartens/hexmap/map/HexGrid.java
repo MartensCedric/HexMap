@@ -12,7 +12,7 @@ import java.util.Random;
 /**
  * Created by Cedric on 2017-04-29.
  */
-public class HexGrid<T> extends HexGridBuilder
+public class HexGrid<T> extends HexGridBuilder<T>
 {
     private static Random rand = new Random();
 

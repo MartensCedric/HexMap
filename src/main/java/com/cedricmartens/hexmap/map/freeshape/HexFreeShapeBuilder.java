@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Cedric Martens on 2017-05-02.
  */
-public class HexFreeShapeBuilder<T> extends HexBuilder
+public class HexFreeShapeBuilder<T> extends HexBuilder<T>
 {
     private List<Hexagon<T>> hexagons;
 

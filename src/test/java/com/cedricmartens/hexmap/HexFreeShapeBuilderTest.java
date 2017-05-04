@@ -60,7 +60,7 @@ public class HexFreeShapeBuilderTest
     @Test
     public void testGetAt()
     {
-        Assert.assertEquals(hex.getHexs()[0], hex.getAt(new Point(0, 0)));
+        Assert.assertEquals(hex.getHexs()[0], hex.getAt(new Point(5, 5)));
         Assert.assertEquals(null, hex.getAt(new Point(200000, 5000000)));
     }
 
