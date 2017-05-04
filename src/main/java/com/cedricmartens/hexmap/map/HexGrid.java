@@ -82,25 +82,4 @@ public class HexGrid<T> extends HexGridBuilder
     {
         return hex.getNeighbors().size() <= 4;
     }
-
-    public Hexagon<T> getAt(Point p)
-    {
-        Hexagon<T> closest = null;
-        double closestDist = Double.MAX_VALUE;
-
-        for(int i = 0; i < hexs.length; i++)
-        {
-            double dis = Utils.distanceToPoint(p.x, p.y,
-                    hexs[i].getHexGeometry().getMiddlePoint().x,
-                    hexs[i].getHexGeometry().getMiddlePoint().y);
-
-            if(dis < closestDist)
-            {
-                closestDist = dis;
-                closest = hexs[i];
-            }
-        }
-
-        return closest;
-    }
 }

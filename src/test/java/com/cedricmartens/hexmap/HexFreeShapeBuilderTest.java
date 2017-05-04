@@ -57,4 +57,11 @@ public class HexFreeShapeBuilderTest
         Assert.assertEquals(1, hex.getHexs()[4].getNeighbors().size());
     }
 
+    @Test
+    public void testGetAt()
+    {
+        Assert.assertEquals(hex.getHexs()[0], hex.getAt(new Point(0, 0)));
+        Assert.assertEquals(null, hex.getAt(new Point(200000, 5000000)));
+    }
+
 }

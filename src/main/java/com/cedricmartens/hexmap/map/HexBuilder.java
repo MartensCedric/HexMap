@@ -1,10 +1,11 @@
 package com.cedricmartens.hexmap.map;
 
-import com.cedricmartens.hexmap.hexagon.HexStyle;
-import com.cedricmartens.hexmap.hexagon.Hexagon;
-import com.cedricmartens.hexmap.hexagon.HexagonShape;
+import com.cedricmartens.hexmap.Utils;
+import com.cedricmartens.hexmap.hexagon.*;
 import com.cedricmartens.hexmap.coordinate.CoordinateSystem;
 import com.cedricmartens.hexmap.coordinate.Point;
+
+import java.util.List;
 
 /**
  * Created by Cedric on 2017-04-29.
@@ -56,5 +57,27 @@ public abstract class HexBuilder<T>
     {
         if(built)
             throw new HexBuildException();
+    }
+
+    public Hexagon<T> getAt(Point p)
+    {
+        if(!built)
+            throw new RuntimeException();
+        // TODO: 2017-05-04 add child class to the builder and extend children instead
+
+        for(int i = 0; i < hexs.length; i++)
+        {
+            if(style.getOrientation() == HexagonOrientation.FLAT_TOP)
+            {
+                List<Point> points = hexs[i].getHexGeometry().getPoints();
+                boolean inY = Utils.isBetween((float)p.y, (float)points.get(4).y, (float)points.get(1).y);
+            }
+
+            // TODO: 2017-05-04 finish this shit 
+        }
+
+
+
+        return null;
     }
 }
