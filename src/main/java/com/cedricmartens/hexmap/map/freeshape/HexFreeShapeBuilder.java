@@ -1,13 +1,11 @@
 package com.cedricmartens.hexmap.map.freeshape;
 
-import com.cedricmartens.hexmap.hexagon.HexStyle;
-import com.cedricmartens.hexmap.hexagon.Hexagon;
+import com.cedricmartens.hexmap.GeometryUtils;
+import com.cedricmartens.hexmap.hexagon.*;
 import com.cedricmartens.hexmap.coordinate.IndexedCoordinate;
 import com.cedricmartens.hexmap.coordinate.Point;
 import com.cedricmartens.hexmap.map.HexBuildException;
 import com.cedricmartens.hexmap.map.HexBuilder;
-import com.cedricmartens.hexmap.hexagon.HexagonOrientation;
-import com.cedricmartens.hexmap.hexagon.HexagonShape;
 import com.cedricmartens.hexmap.map.HexMap;
 
 import java.util.ArrayList;
@@ -18,12 +16,12 @@ import java.util.List;
  */
 public class HexFreeShapeBuilder<T> extends HexBuilder<T>
 {
-    private List<Hexagon<T>> hexagons;
+    private List<Point> hexagons;
 
     public HexFreeShapeBuilder()
     {
         origin = new Point(0, 0);
-        hexagons = new ArrayList<Hexagon<T>>();
+        hexagons = new ArrayList<Point>();
         shape = HexagonShape.FREE;
     }
 
@@ -35,7 +33,7 @@ public class HexFreeShapeBuilder<T> extends HexBuilder<T>
 
     public void addHex(Point p)
     {
-        hexagons.add(new Hexagon<T>(p, new IndexedCoordinate(hexagons.size()),style));
+        hexagons.add(p);
     }
 
     public void addHexNextTo(int n, int side)
@@ -43,7 +41,7 @@ public class HexFreeShapeBuilder<T> extends HexBuilder<T>
         addHexNextTo(hexagons.get(n), side);
     }
 
-    public void addHexNextTo(Hexagon<T> hexagon, int side)
+    public void addHexNextTo(Point p, int side)
     {
         if(side >= 6)
             throw new HexBuildException();
@@ -51,8 +49,8 @@ public class HexFreeShapeBuilder<T> extends HexBuilder<T>
         double degrees = side * 60;
         degrees += style.getOrientation() == HexagonOrientation.POINTY_TOP ? 0 : -30;
         double rad = Math.PI/180.0 * degrees;
-        double x = hexagon.getHexGeometry().getMiddlePoint().x + hexagon.getHexGeometry().getWidth() * Math.cos(rad);
-        double y = hexagon.getHexGeometry().getMiddlePoint().y + hexagon.getHexGeometry().getHeight() * Math.sin(rad);
+        double x = p.x + GeometryUtils.getHexWidth(this.style.getSize(), this.style.getOrientation()) * Math.cos(rad);
+        double y = p.y + GeometryUtils.getHexHeight(this.style.getSize(), this.style.getOrientation()) * Math.sin(rad);
         addHex(new Point(x, y));
     }
 
@@ -60,9 +58,14 @@ public class HexFreeShapeBuilder<T> extends HexBuilder<T>
     {
         hexs = new Hexagon[hexagons.size()];
 
-        for(int i = 0; i < hexagons.size(); i++)
+        for(int i = 0; i < hexs.length; i++)
         {
-            Hexagon<T> hex = hexagons.get(i);
+            hexs[i] = new Hexagon<T>(hexagons.get(i), new IndexedCoordinate(i), style);
+        }
+
+        for(int i = 0; i < hexs.length; i++)
+        {
+            HexGeometry geometry = hexs[i].getHexGeometry();
 
             List<Hexagon<T>> neighbors = new ArrayList<>();
             for(int j = 0; j < 6; j++)
@@ -70,22 +73,20 @@ public class HexFreeShapeBuilder<T> extends HexBuilder<T>
                 double degrees = j * 60;
                 degrees += style.getOrientation() == HexagonOrientation.POINTY_TOP ? 0 : -30;
                 double rad = Math.PI/180.0 * degrees;
-                double x = hex.getHexGeometry().getMiddlePoint().x + hex.getHexGeometry().getWidth() * Math.cos(rad);
-                double y = hex.getHexGeometry().getMiddlePoint().y + hex.getHexGeometry().getHeight() * Math.sin(rad);
+                double x = geometry.getMiddlePoint().x + geometry.getWidth() * Math.cos(rad);
+                double y = geometry.getMiddlePoint().y + geometry.getHeight() * Math.sin(rad);
                 Point p = new Point(x,y);
 
-                for(Hexagon<T> h : hexagons)
+                for(int k = 0; k < hexs.length; k++)
                 {
-                    if(h.getHexGeometry().getMiddlePoint().equals(p))
+                    if(hexs[k].getHexGeometry().getMiddlePoint().equals(p))
                     {
-                        neighbors.add(h);
+                        neighbors.add(hexs[k]);
                     }
                 }
             }
 
-            hex.setNeighbors(neighbors);
-
-            hexs[i] = hex;
+            hexs[i].setNeighbors(neighbors);
         }
 
         HexMap<T> grid = createGrid();

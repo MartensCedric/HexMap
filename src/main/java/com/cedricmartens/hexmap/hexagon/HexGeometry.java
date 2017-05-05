@@ -1,5 +1,6 @@
 package com.cedricmartens.hexmap.hexagon;
 
+import com.cedricmartens.hexmap.GeometryUtils;
 import com.cedricmartens.hexmap.coordinate.Point;
 
 import java.util.ArrayList;
@@ -45,15 +46,11 @@ public class HexGeometry
 
     public double getHeight()
     {
-        return orientation == HexagonOrientation.POINTY_TOP ?
-                size * 2 :
-                Math.sqrt(3)/2 * getWidth();
+        return GeometryUtils.getHexHeight(size, orientation);
     }
 
     public double getWidth()
     {
-        return orientation == HexagonOrientation.POINTY_TOP ?
-                Math.sqrt(3)/2 * getHeight() :
-                size * 2;
+        return GeometryUtils.getHexWidth(size, orientation);
     }
 }

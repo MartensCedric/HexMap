@@ -8,6 +8,12 @@ public class HexStyle
     private double size;
     private HexagonOrientation orientation;
 
+    public HexStyle()
+    {
+        size = 20;
+        orientation = HexagonOrientation.FLAT_TOP;
+    }
+
     public HexStyle(double size, HexagonOrientation orientation) {
         if(size <= 0)
             throw new IllegalArgumentException();

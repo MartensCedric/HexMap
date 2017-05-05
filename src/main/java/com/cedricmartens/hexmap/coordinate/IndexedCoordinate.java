@@ -7,6 +7,11 @@ public class IndexedCoordinate implements CoordinateSystem
 {
     private int i;
 
+    public IndexedCoordinate()
+    {
+        i = 0;
+    }
+
     public IndexedCoordinate(int i)
     {
         this.i = i;
