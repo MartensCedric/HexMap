@@ -17,6 +17,26 @@ public class IndexedCoordinate implements CoordinateSystem
     }
 
     @Override
+    public CubeCoordinate toCube() {
+        return null;
+    }
+
+    @Override
+    public IndexedCoordinate toIndexed() {
+        return this;
+    }
+
+    @Override
+    public OffsetCoordinate toOffset() {
+        return null;
+    }
+
+    @Override
+    public AxialCoordinate toAxial() {
+        return null;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -29,5 +49,12 @@ public class IndexedCoordinate implements CoordinateSystem
     @Override
     public int hashCode() {
         return i;
+    }
+
+    @Override
+    public String toString() {
+        return "IndexedCoordinate{" +
+                "i=" + i +
+                '}';
     }
 }

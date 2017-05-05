@@ -5,5 +5,8 @@ package com.cedricmartens.hexmap.coordinate;
  */
 public interface CoordinateSystem
 {
-
+    CubeCoordinate toCube();
+    IndexedCoordinate toIndexed();
+    OffsetCoordinate toOffset();
+    AxialCoordinate toAxial();
 }

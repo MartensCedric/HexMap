@@ -12,4 +12,24 @@ public class AxialCoordinate implements CoordinateSystem
         this.x = x;
         this.y = y;
     }
+
+    @Override
+    public CubeCoordinate toCube() {
+        return null;
+    }
+
+    @Override
+    public IndexedCoordinate toIndexed() {
+        return null;
+    }
+
+    @Override
+    public OffsetCoordinate toOffset() {
+        return null;
+    }
+
+    @Override
+    public AxialCoordinate toAxial() {
+        return this;
+    }
 }

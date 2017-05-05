@@ -1,15 +1,11 @@
 package com.cedricmartens.hexmap;
 
-import com.cedricmartens.hexmap.coordinate.CubeCoordinate;
-import com.cedricmartens.hexmap.coordinate.IndexedCoordinate;
 import com.cedricmartens.hexmap.coordinate.Point;
 import com.cedricmartens.hexmap.hexagon.HexGeometry;
 import com.cedricmartens.hexmap.hexagon.HexStyle;
 import com.cedricmartens.hexmap.hexagon.HexagonOrientation;
-import com.cedricmartens.hexmap.hexagon.HexagonShape;
-import com.cedricmartens.hexmap.map.HexGrid;
+import com.cedricmartens.hexmap.map.HexMap;
 import com.cedricmartens.hexmap.map.freeshape.HexFreeShapeBuilder;
-import com.cedricmartens.hexmap.map.grid.HexGridBuilder;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -18,14 +14,13 @@ import org.junit.Test;
  * Created by 1544256 on 2017-05-03.
  */
 public class HexFreeShapeBuilderTest
-{    private static HexGrid<Integer> hex;
+{    private static HexMap<Integer> hex;
 
     @BeforeClass
     public static void initClass()
     {
         HexFreeShapeBuilder<Integer> hexFSB = new HexFreeShapeBuilder<Integer>()
-                .setStyle(new HexStyle(20, HexagonOrientation.FLAT_TOP))
-                .setCoordinateSystem(IndexedCoordinate.class);
+                .setStyle(new HexStyle(20, HexagonOrientation.FLAT_TOP));
 
 
         hexFSB.addHex(new Point(0, 0));

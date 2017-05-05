@@ -1,5 +1,7 @@
 package com.cedricmartens.hexmap.coordinate;
 
+import com.cedricmartens.hexmap.hexagon.Hexagon;
+
 /**
  * Created by 1544256 on 2017-04-28.
  */
@@ -50,5 +52,126 @@ public class CubeCoordinate implements CoordinateSystem
                 ", y=" + y +
                 ", z=" + z +
                 '}';
+    }
+
+    @Override
+    public CubeCoordinate toCube() {
+        return this;
+    }
+
+    @Override
+    public IndexedCoordinate toIndexed() {
+
+        if(equals(new CubeCoordinate(0, 0, 0)))
+            return new IndexedCoordinate(0);
+
+        int max = Math.max(Math.abs(this.x), Math.abs(this.y));
+        max = Math.max(max, Math.abs(this.z));
+
+        int totalHex = 0;
+        for(int i = 1; i < max + 1; i++)
+        {
+            totalHex += 6*i;
+        }
+
+        int cursor = 1;
+        int currentW = 1;
+
+        while(cursor < totalHex)
+        {
+            int cubeX;
+            int cubeY;
+            int cubeZ;
+
+            //UP
+            for(int i = 0; i < currentW; i++)
+            {
+                cubeX = currentW;
+                cubeY = -currentW + i;
+                cubeZ = -i;
+
+                if(new CubeCoordinate(cubeX, cubeY, cubeZ).equals(this))
+                    return new IndexedCoordinate(cursor);
+
+                cursor++;
+            }
+
+            //LEFT UP
+            for(int i = 0; i < currentW; i++)
+            {
+                cubeX = currentW - i;
+                cubeY = i;
+                cubeZ = -currentW;
+
+                if(new CubeCoordinate(cubeX, cubeY, cubeZ).equals(this))
+                    return new IndexedCoordinate(cursor);
+
+                cursor++;
+            }
+
+            //LEFT DOWN
+            for(int i = 0; i < currentW; i++)
+            {
+                cubeX = -i;
+                cubeY = currentW;
+                cubeZ = -currentW + i;
+
+                if(new CubeCoordinate(cubeX, cubeY, cubeZ).equals(this))
+                    return new IndexedCoordinate(cursor);
+
+                cursor++;
+            }
+
+            //DOWN
+            for(int i = 0; i < currentW; i++)
+            {
+                cubeX = -currentW;
+                cubeY = currentW - i;
+                cubeZ = i;
+
+                if(new CubeCoordinate(cubeX, cubeY, cubeZ).equals(this))
+                    return new IndexedCoordinate(cursor);
+
+                cursor++;
+            }
+
+            //DOWN RIGHT
+            for(int i = 0; i < currentW; i++)
+            {
+                cubeX = -currentW + i;
+                cubeY = -i;
+                cubeZ = currentW;
+
+                if(new CubeCoordinate(cubeX, cubeY, cubeZ).equals(this))
+                    return new IndexedCoordinate(cursor);
+
+                cursor++;
+            }
+
+            //UP RIGHT
+            for(int i = 0; i < currentW; i++)
+            {
+                cubeX = i;
+                cubeY = -currentW;
+                cubeZ = currentW - i;
+
+                if(new CubeCoordinate(cubeX, cubeY, cubeZ).equals(this))
+                    return new IndexedCoordinate(cursor);
+
+                cursor++;
+            }
+            currentW++;
+        }
+        return null;
+    }
+
+    @Override
+    public OffsetCoordinate toOffset() {
+        return null;
+    }
+
+    @Override
+    public AxialCoordinate toAxial() {
+        return null;
     }
 }

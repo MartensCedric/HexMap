@@ -1,16 +1,14 @@
 package com.cedricmartens.hexmap.map.freeshape;
 
-import com.cedricmartens.hexmap.hexagon.HexGeometry;
 import com.cedricmartens.hexmap.hexagon.HexStyle;
 import com.cedricmartens.hexmap.hexagon.Hexagon;
-import com.cedricmartens.hexmap.coordinate.CoordinateSystem;
 import com.cedricmartens.hexmap.coordinate.IndexedCoordinate;
 import com.cedricmartens.hexmap.coordinate.Point;
 import com.cedricmartens.hexmap.map.HexBuildException;
 import com.cedricmartens.hexmap.map.HexBuilder;
 import com.cedricmartens.hexmap.hexagon.HexagonOrientation;
 import com.cedricmartens.hexmap.hexagon.HexagonShape;
-import com.cedricmartens.hexmap.map.HexGrid;
+import com.cedricmartens.hexmap.map.HexMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +30,6 @@ public class HexFreeShapeBuilder<T> extends HexBuilder<T>
     public HexFreeShapeBuilder<T> setStyle(HexStyle style)
     {
         this.style = style;
-        return this;
-    }
-
-    public HexFreeShapeBuilder<T> setCoordinateSystem(Class<? extends CoordinateSystem> coordinateSystem)
-    {
-        this.coordinateSystem = coordinateSystem;
         return this;
     }
 
@@ -64,7 +56,7 @@ public class HexFreeShapeBuilder<T> extends HexBuilder<T>
         addHex(new Point(x, y));
     }
 
-    public HexGrid<T> build()
+    public HexMap<T> build()
     {
         hexs = new Hexagon[hexagons.size()];
 
@@ -96,7 +88,7 @@ public class HexFreeShapeBuilder<T> extends HexBuilder<T>
             hexs[i] = hex;
         }
 
-        HexGrid<T> grid = createGrid();
+        HexMap<T> grid = createGrid();
         built = true;
 
         return grid;

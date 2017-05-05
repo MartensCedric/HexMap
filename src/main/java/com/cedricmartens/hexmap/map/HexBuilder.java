@@ -2,7 +2,6 @@ package com.cedricmartens.hexmap.map;
 
 import com.cedricmartens.hexmap.Utils;
 import com.cedricmartens.hexmap.hexagon.*;
-import com.cedricmartens.hexmap.coordinate.CoordinateSystem;
 import com.cedricmartens.hexmap.coordinate.Point;
 
 import java.util.List;
@@ -18,12 +17,6 @@ public abstract class HexBuilder<T>
     protected Hexagon<T>[] hexs;
     protected HexagonShape shape;
     protected HexStyle style;
-
-    protected Class<? extends CoordinateSystem> coordinateSystem;
-
-    public Class<? extends CoordinateSystem> getCoordinateSystem() {
-        return coordinateSystem;
-    }
 
     public Point getOrigin() {
         return origin;
@@ -41,15 +34,14 @@ public abstract class HexBuilder<T>
         return style;
     }
 
-    public abstract HexGrid<T> build();
+    public abstract HexMap<T> build();
 
-    protected HexGrid<T> createGrid() {
+    protected HexMap<T> createGrid() {
 
-       HexGrid grid = new HexGrid();
+       HexMap grid = new HexMap();
        grid.setOrigin(origin);
        grid.setShape(shape);
        grid.setStyle(style);
-       grid.setCoordinateSystem(coordinateSystem);
        grid.hexs = hexs;
        return grid;
     }
@@ -62,7 +54,6 @@ public abstract class HexBuilder<T>
 
     public Hexagon<T> getAt(Point p)
     {
-        // TODO: 2017-05-04 add child class to the builder and extend children instead
 
         for(int i = 0; i < hexs.length; i++)
         {
