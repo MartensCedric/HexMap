@@ -60,7 +60,7 @@ public abstract class HexBuilder<T>
             if(style.getOrientation() == HexagonOrientation.FLAT_TOP)
             {
                 List<Point> points = hexs[i].getHexGeometry().getPoints();
-                boolean inX = GeometryUtils.isBetweenSlopes(p, points.get(1), points.get(3), GeometryUtils.HEX_SLOPE);
+                boolean inX = GeometryUtils.isBetweenSlopes(p, points.get(1), points.get(3), -GeometryUtils.HEX_SLOPE);
                 boolean inY = GeometryUtils.isBetweenSlopes(p, points.get(1), points.get(4), 0);
                 boolean inZ = GeometryUtils.isBetweenSlopes(p, points.get(3), points.get(5), GeometryUtils.HEX_SLOPE);;
                 if(inX && inY && inZ)
