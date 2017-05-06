@@ -43,15 +43,7 @@ public class HexFreeShapeBuilder<T> extends HexBuilder<T>
 
     public void addHexNextTo(Point p, int side)
     {
-        if(side >= 6)
-            throw new HexBuildException();
-
-        double degrees = side * 60;
-        degrees += style.getOrientation() == HexagonOrientation.POINTY_TOP ? 0 : -30;
-        double rad = Math.PI/180.0 * degrees;
-        double x = p.x + GeometryUtils.getHexWidth(this.style.getSize(), this.style.getOrientation()) * Math.cos(rad);
-        double y = p.y + GeometryUtils.getHexHeight(this.style.getSize(), this.style.getOrientation()) * Math.sin(rad);
-        addHex(new Point(x, y));
+        addHex(GeometryUtils.getPointAtSide(p, side, style));
     }
 
     public HexMap<T> build()
@@ -70,12 +62,7 @@ public class HexFreeShapeBuilder<T> extends HexBuilder<T>
             List<Hexagon<T>> neighbors = new ArrayList<>();
             for(int j = 0; j < 6; j++)
             {
-                double degrees = j * 60;
-                degrees += style.getOrientation() == HexagonOrientation.POINTY_TOP ? 0 : -30;
-                double rad = Math.PI/180.0 * degrees;
-                double x = geometry.getMiddlePoint().x + geometry.getWidth() * Math.cos(rad);
-                double y = geometry.getMiddlePoint().y + geometry.getHeight() * Math.sin(rad);
-                Point p = new Point(x,y);
+                Point p = GeometryUtils.getPointAtSide(geometry.getMiddlePoint(), j, style);
 
                 for(int k = 0; k < hexs.length; k++)
                 {
@@ -93,5 +80,9 @@ public class HexFreeShapeBuilder<T> extends HexBuilder<T>
         built = true;
 
         return grid;
+    }
+
+    public List<Point> getHexagons() {
+        return hexagons;
     }
 }

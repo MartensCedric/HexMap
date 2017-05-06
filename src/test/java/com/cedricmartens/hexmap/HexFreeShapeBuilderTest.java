@@ -59,4 +59,23 @@ public class HexFreeShapeBuilderTest
         Assert.assertEquals(null, hex.getAt(new Point(200000, 5000000)));
     }
 
+
+    @Test
+    public void testAddNextTo()
+    {
+        HexFreeShapeBuilder<Integer> hexFSB = new HexFreeShapeBuilder<Integer>()
+                .setStyle(new HexStyle(20, HexagonOrientation.FLAT_TOP));
+
+
+        hexFSB.addHex(new Point(0, 0));
+        hexFSB.addHexNextTo(0, 0);
+        hexFSB.addHexNextTo(1, 2);
+        hexFSB.addHexNextTo(2, 3);
+        hexFSB.addHexNextTo(0, 4);
+        hexFSB.addHexNextTo(0, 1);
+
+        Assert.assertEquals(hexFSB.getHexagons().get(5),
+                hexFSB.getHexagons().get(2));
+    }
+
 }
