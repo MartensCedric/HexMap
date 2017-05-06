@@ -73,4 +73,23 @@ public class HexGeometryTest
         HexGeometry coord = new HexGeometry(new Point(-2, 3), style);
         Assert.assertEquals(14, coord.getHeight(), 0);
     }
+
+    @Test
+    public void testIsBetweenSlopes()
+    {
+        Point p = new Point(3, 5);
+        Point sp1 = new Point(-8, 0);
+        Point sp2 = new Point(10, 9);
+        Assert.assertTrue(GeometryUtils.isBetweenSlopes(p,
+                        sp1, sp2, 0));
+
+        Assert.assertTrue(GeometryUtils.isBetweenSlopes(p,
+                sp1, sp2, 1));
+
+        Assert.assertTrue(GeometryUtils.isBetweenSlopes(new Point(500, 500),
+                sp1, sp2, 1));
+
+        Assert.assertFalse(GeometryUtils.isBetweenSlopes(new Point(0, 9),
+                sp1,sp2, 1));
+    }
 }

@@ -9,6 +9,7 @@ import com.cedricmartens.hexmap.hexagon.HexagonOrientation;
  */
 public class GeometryUtils
 {
+    public static final double HEX_SLOPE = 1.7320508075688774;
     public static double getHexWidth(double size, HexagonOrientation orientation)
     {
         return orientation == HexagonOrientation.POINTY_TOP ?
@@ -78,5 +79,34 @@ public class GeometryUtils
                 throw new IllegalStateException();
         }
         return new Point(x, y);
+    }
+
+    public static boolean isBetweenSlopes(Point p, Point sp1, Point sp2, double s1, double s2)
+    {
+        return isBetween(p.y, origin(sp1, s1) + p.x * s1, origin(sp2, s2) + p.x * s2);
+    }
+
+    public static boolean isBetweenSlopes(Point p, Point sp1, Point sp2, double slope)
+    {
+        return isBetweenSlopes(p, sp1, sp2, slope, slope);
+    }
+
+    public static boolean isBetween(double n, double lowerLimit, double higherLimit)
+    {
+        return (n >= lowerLimit && n <= higherLimit) || (n >= higherLimit && n <= lowerLimit);
+    }
+
+    public static boolean isInside(float x, float y, float lowX, float lowY, float highX, float highY)
+    {
+        return isBetween(x, lowX, highX) && isBetween(y, lowY, highY);
+    }
+
+    public static double distanceToPoint(double x1, double y1, double x2, double y2) {
+        return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+    }
+
+    public static double origin(Point p, double slope)
+    {
+        return p.y - p.x * slope;
     }
 }

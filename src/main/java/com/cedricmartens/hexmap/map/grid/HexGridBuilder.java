@@ -1,6 +1,5 @@
 package com.cedricmartens.hexmap.map.grid;
 
-import com.cedricmartens.hexmap.Utils;
 import com.cedricmartens.hexmap.coordinate.CoordinateSystem;
 import com.cedricmartens.hexmap.coordinate.CubeCoordinate;
 import com.cedricmartens.hexmap.coordinate.OffsetCoordinate;

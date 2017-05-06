@@ -1,6 +1,6 @@
 package com.cedricmartens.hexmap.map;
 
-import com.cedricmartens.hexmap.Utils;
+import com.cedricmartens.hexmap.GeometryUtils;
 import com.cedricmartens.hexmap.hexagon.*;
 import com.cedricmartens.hexmap.coordinate.Point;
 
@@ -60,13 +60,9 @@ public abstract class HexBuilder<T>
             if(style.getOrientation() == HexagonOrientation.FLAT_TOP)
             {
                 List<Point> points = hexs[i].getHexGeometry().getPoints();
-                boolean inX = Utils.isBetween((float)p.y,
-                        (float)(points.get(1).x*-HEX_SLOPE + p.y),
-                        (float)(points.get(3).x*-HEX_SLOPE + p.y));
-                boolean inY = Utils.isBetween((float)p.y, (float)points.get(4).y, (float)points.get(1).y);
-                boolean inZ = Utils.isBetween((float)p.y,
-                        (float)(points.get(3).x*HEX_SLOPE + p.y),
-                        (float)(points.get(5).x*HEX_SLOPE + p.y));
+                boolean inX = GeometryUtils.isBetweenSlopes(p, points.get(1), points.get(3), GeometryUtils.HEX_SLOPE);
+                boolean inY = GeometryUtils.isBetweenSlopes(p, points.get(1), points.get(4), 0);
+                boolean inZ = GeometryUtils.isBetweenSlopes(p, points.get(3), points.get(5), GeometryUtils.HEX_SLOPE);;
                 if(inX && inY && inZ)
                     return hexs[i];
             }
