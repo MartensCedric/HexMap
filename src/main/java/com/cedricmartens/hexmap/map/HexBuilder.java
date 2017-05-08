@@ -26,6 +26,8 @@ public abstract class HexBuilder<T>
         return hexs;
     }
 
+    public void setHexs(Hexagon<T>[] hexs){this.hexs = hexs;}
+
     public HexagonShape getShape() {
         return shape;
     }
