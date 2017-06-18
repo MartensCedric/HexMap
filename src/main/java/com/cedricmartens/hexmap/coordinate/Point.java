@@ -24,8 +24,8 @@ public class Point
     public boolean equals(Object o)
     {
         Point p = (Point)o;
-        return Math.round(p.x * 100.0)/100.0 == Math.round(this.x * 100.0)/100.0
-                && Math.round(p.y * 100.0)/100.0 == Math.round(this.y * 100.0)/100.0 ;
+        return Math.round(p.x * 100.0) == Math.round(this.x * 100.0)
+                && Math.round(p.y * 100.0) == Math.round(this.y * 100.0);
     }
 
     @Override
