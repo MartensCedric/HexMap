@@ -63,6 +63,7 @@ public class Hexagon<T>
         this.neighbors = neighbors;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -70,21 +71,27 @@ public class Hexagon<T>
 
         Hexagon<?> hexagon = (Hexagon<?>) o;
 
-        if (coordinateSystem != null ? !coordinateSystem.equals(hexagon.coordinateSystem) : hexagon.coordinateSystem != null) return false;
-        return hexData != null ? hexData.equals(hexagon.hexData) : hexagon.hexData == null;
+        if (hexGeometry != null ? !hexGeometry.equals(hexagon.hexGeometry) : hexagon.hexGeometry != null)
+            return false;
+        if (style != null ? !style.equals(hexagon.style) : hexagon.style != null) return false;
+        return coordinateSystem != null ? coordinateSystem.equals(hexagon.coordinateSystem) : hexagon.coordinateSystem == null;
     }
 
     @Override
     public int hashCode() {
-        int result = coordinateSystem != null ? coordinateSystem.hashCode() : 0;
-        result = 31 * result + (hexData != null ? hexData.hashCode() : 0);
+        int result = hexGeometry != null ? hexGeometry.hashCode() : 0;
+        result = 31 * result + (style != null ? style.hashCode() : 0);
+        result = 31 * result + (coordinateSystem != null ? coordinateSystem.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "Hexagon{" +
-                "coordinateSystem=" + coordinateSystem +
+                "hexGeometry=" + hexGeometry +
+                ", style=" + style +
+                ", coordinateSystem=" + coordinateSystem +
+                ", hexData=" + hexData +
                 '}';
     }
 }
